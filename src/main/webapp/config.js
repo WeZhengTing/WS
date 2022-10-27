@@ -1,5 +1,6 @@
 var config={
-   url:"http://localhost:8080"
+   url:"http://localhost:8080",
+   fUrl:"http://localhost:8080"
 }
 function getQueryVariable(variable)
 {

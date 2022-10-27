@@ -5,11 +5,14 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
+import com.zc.controller.front.UserController;
+import com.zc.model.Data;
 import com.zc.model.User;
 import com.zc.service.UserService;
 import com.zc.util.MD5Util;
 import com.zc.util.Util;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -99,5 +102,19 @@ public class UserServiceImpl implements UserService {
             oldUser.setPwd(MD5Util.GetMD5Code(user.getPwd()));
         }
         return oldUser.update();
+    }
+
+    @Override
+    public boolean login(String username, String pwd, HttpServletResponse resp) {
+        Data rightStatus=Data.dao.findFirst("SELECT * FROM `zc_data` WHERE `key` = ? AND `value` = ?","userStatus","正常");
+        User user=User.dao.findFirst("SELECT * FROM `zc_user` WHERE `username`= ? AND `pwd`=? AND `userStatus`=?",username,MD5Util.GetMD5Code(pwd),rightStatus.getValueId());
+       if (user==null){
+           return false;
+       }
+       //写入cookie登录与否的信息 token令牌随机字符Map<String,User>
+        String token =Util.getToken();
+        UserController.tokenMap.put(token,user);
+        Util.addCookie(resp,PropKit.get("cookieToken"),token,7);
+        return true;
     }
 }

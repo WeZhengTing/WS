@@ -16,7 +16,7 @@ public class UserValidator extends Validator {
             controller.getFile();
             validateRequired("username", "msg", "用户名不能为空");
             validateRequired("pwd", "msg", "密码不能为空");
-            validateRequired("userStatus","msg","验证码不能为空");
+            validateRequired("userStatus","msg","用户状态不能为空");
 //            用户重复性验证
             String username=controller.getPara("username");
             if (username!=null){

@@ -5,3 +5,4 @@ baseUploadPath=E:\\java\\rg_game\\tu
 userHeadImgPath=E:\\java\\rg_game\\tu\\userHeadImg
 userHeadImgPathRel=userHeadImg\\
 urlPath=http://localhost:8080/tu/
+cookieToken=u_t

@@ -3,9 +3,13 @@ package com.zc.util;
 import com.jfinal.kit.PropKit;
 import com.zc.model.Data;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,5 +69,26 @@ public class Util {
             }
         }
         return true;
+    }
+
+
+    public  static String getToken(){
+        return UUID.randomUUID().toString();
+    }
+    public  static void  addCookie(HttpServletResponse resp,String name,String value,int day){
+        Cookie cookie=new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setMaxAge(60*60*24*day);
+        resp.addCookie(cookie);
+    }
+    public  static  String  getCookie(HttpServletRequest req,String name){
+        Cookie[] cookies =req.getCookies();
+        if(cookies==null) return  null;
+        for (Cookie cookie:cookies){
+            if(name.equals(cookie.getName())){
+                return  cookie.getValue();
+            }
+        }
+        return null;
     }
 }

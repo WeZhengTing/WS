@@ -2,6 +2,8 @@ package com.zc.service;
 
 import com.zc.model.User;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface UserService {
@@ -23,5 +25,5 @@ public interface UserService {
 
     boolean editUser(User user, boolean isChange);
 
-
+    boolean login(String username, String pwd, HttpServletResponse resp);
 }
